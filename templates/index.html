@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTrack Dashboard</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h2 class="logo">TimeTrack<span>.</span></h2>
+
+        <p class="menu-label">MAIN MENU</p>
+
+        <nav>
+            <a href="#dashboard" class="active">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="#tracker">
+                <span>◷</span> Time Tracker
+            </a>
+
+            <a href="#tasks">
+                <span>✓</span> My Tasks
+            </a>
+
+            <a href="#daily-plan">
+                <span>▤</span> Daily Plan
+            </a>
+
+            <a href="#performance">
+                <span>▥</span> Performance
+            </a>
+
+            <a href="#study-history">
+                <span>◷</span> Study History
+            </a>
+
+            <a href="#backlog">
+                <span>◫</span> Backlog
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="creator-info">
+                <p>CREATED BY</p>
+                <h3>Aditya Kashyap</h3>
+                <span>Personal Productivity Dashboard</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="dashboard">
+
+        <header class="topbar">
+
+            <div>
+                <p class="welcome-text">YOUR PERSONAL STUDY SPACE</p>
+                <h1>Dashboard</h1>
+                <p class="subtitle">
+                    Welcome back! Here's your study overview.
+                </p>
+            </div>
+
+            <div class="profile">A</div>
+
+        </header>
+
+
+        <!-- STATISTICS -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <p>Total Study Time</p>
+                <h2 id="totalTimer">00:00:00</h2>
+                <span>All sessions combined</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Completed Tasks</p>
+                <h2 id="completedCount">0/0</h2>
+                <span>Your completed tasks</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Productivity</p>
+                <h2 id="productivityCount">0%</h2>
+                <span>Task completion rate</span>
+            </div>
+
+        </section>
+
+
+        <!-- CHARTS -->
+        <section class="charts-grid">
+
+            <div class="panel weekly-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h2>Weekly Study Hours</h2>
+                        <p>Your study activity from Monday to Sunday</p>
+                    </div>
+
+                    <span class="chart-tag">THIS WEEK</span>
+                </div>
+
+                <div id="weeklyChart" class="weekly-chart">
+                    <p>Loading weekly graph...</p>
+                </div>
+
+            </div>
+
+
+            <div class="panel task-chart-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h2>Task Progress</h2>
+                        <p>Your task completion overview</p>
+                    </div>
+                </div>
+
+                <div id="taskChart" class="task-chart">
+                    <p>Loading task progress...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PLANNED VS ACTUAL -->
+        <section class="panel plan-chart-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Planned vs Actual Study Time</h2>
+                    <p>Compare today's target with your actual study time</p>
+                </div>
+            </div>
+
+            <div id="planActualChart" class="plan-actual-chart">
+                <p>Loading performance graph...</p>
+            </div>
+
+        </section>
+
+
+        <!-- DAILY PLAN -->
+        <section class="panel plan-panel" id="daily-plan">
+
+            <h2>Daily Study Plan</h2>
+            <p>Set your study target for today.</p>
+
+            <div class="plan-input">
+
+                <input
+                    type="number"
+                    id="plannedHours"
+                    placeholder="Enter hours (example: 5)"
+                    min="0"
+                    max="24"
+                    step="0.5"
+                >
+
+                <button id="savePlanBtn" type="button">
+                    Save Plan
+                </button>
+
+            </div>
+
+            <div class="plan-result">
+                <h3>Today's Target</h3>
+                <h2 id="plannedTime">0h 00m</h2>
+                <p id="planMessage">No plan saved yet.</p>
+            </div>
+
+        </section>
+
+
+        <!-- PERFORMANCE -->
+        <section class="panel performance-panel" id="performance">
+
+            <h2>Daily Performance</h2>
+            <p>Compare your planned time with your actual study time.</p>
+
+            <div class="performance-grid">
+
+                <div class="performance-card">
+                    <h3>Planned Time</h3>
+                    <h2 id="performancePlanned">0h 0m</h2>
+                </div>
+
+                <div class="performance-card">
+                    <h3>Actual Time</h3>
+                    <h2 id="actualTime">0h 0m</h2>
+                </div>
+
+                <div class="performance-card">
+                    <h3>Remaining Time</h3>
+                    <h2 id="remainingTime">0h 0m</h2>
+                </div>
+
+            </div>
+
+            <h3 class="session-heading">Study Session History</h3>
+
+            <div id="sessionHistory">
+                <p>No study sessions yet.</p>
+            </div>
+
+        </section>
+
+
+        <!-- STUDY HISTORY MENU DESTINATION -->
+        <section class="panel" id="study-history">
+
+            <h2>Study History</h2>
+            <p>Your recorded study sessions appear in the Daily Performance section above.</p>
+
+            <a href="#performance">View Study Session History</a>
+
+        </section>
+
+
+        <!-- TRACKER AND TASKS -->
+        <section class="content-grid">
+
+            <div class="panel" id="tracker">
+
+                <h2>Time Tracker</h2>
+                <h3>Current Session</h3>
+
+                <div id="sessionTimer" class="timer">
+                    00:00:00
+                </div>
+
+                <p>Track your current study session.</p>
+
+                <div class="timer-buttons">
+
+                    <button class="start-btn" id="startTimer" type="button">
+                        Start Tracking
+                    </button>
+
+                    <button class="stop-btn" id="stopTimer" type="button" disabled>
+                        Stop Tracking
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel" id="tasks">
+
+                <h2>Today's Tasks</h2>
+
+                <div class="task-input">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter your task..."
+                    >
+
+                    <button class="task-btn" id="addTaskBtn" type="button">
+                        Add Task
+                    </button>
+
+                </div>
+
+                <div id="taskList"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BACKLOG -->
+        <section class="panel backlog-panel" id="backlog">
+
+            <h2>Backlog Management</h2>
+            <p>Manage unfinished study time and track your progress.</p>
+
+            <div class="backlog-summary">
+
+                <div class="backlog-card">
+                    <h3>Active Backlog</h3>
+                    <h2 id="backlogTotal">0h 00m</h2>
+                </div>
+
+                <div class="backlog-card">
+                    <h3>Maximum Limit</h3>
+                    <h2>7 Hours</h2>
+                </div>
+
+                <div class="backlog-card">
+                    <h3>Deadline</h3>
+                    <h2>30 Days</h2>
+                </div>
+
+            </div>
+
+            <h3 class="backlog-heading">Backlog History</h3>
+
+            <div id="backlogList">
+                <p>No backlog available.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
